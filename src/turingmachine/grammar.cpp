@@ -3,29 +3,57 @@
 //
 
 #include "grammar.hpp"
-
-
+#include <utility>
 
 Grammar::Grammar() {
-
+    this->name = "undefined";
 }
 
-void Grammar::addRule(std::string currentState, std::string read, std::string newState, std::string write, bool direction) {
+Grammar::Grammar(std::string name) {
+    this->name = std::move(name);
+}
+
+
+void Grammar::addRule(state currentState, std::string read, state newState, std::string write, direction direction) {
     Rule rule;
     rule.currentState = std::move(currentState);
     rule.read = std::move(read);
     rule.newState = std::move(newState);
     rule.write = std::move(write);
     rule.direction = direction;
-    rulesList.push_back(rule);
+    this->rulesList.push_back(rule);
+}
+
+void Grammar::addInitialState(state initialState) {
+    this->initialState = std::move(initialState);
+}
+
+void Grammar::addFinalState(state finalState) {
+    this->finalState = std::move(finalState);
 }
 
 void Grammar::listRuleDisplay() {
-    for (std::vector<Rule>::const_iterator i = rulesList.begin(); i != rulesList.end(); ++i)
-        std::cout << i->currentState << ' ';
+    std::cout << this->name << std::endl;
+    for (std::vector<Rule>::const_iterator i = this->rulesList.begin(); i != this->rulesList.end(); ++i) {
+        std::string directionDisplay = (i->direction==1) ? "LEFT" : "RIGHT";
+        std::cout << "Etat initial: " << i->currentState << " / ";
+        std::cout << "Caractère lu: " << i->read << " / ";
+        std::cout << "Nouvel état: " << i->newState << " / ";
+        std::cout << "Caractère écrit: " << i->write << " / ";
+        std::cout << "direction: " <<  directionDisplay << std::endl;
+    }
+    std::cout << std::endl;
 }
 
-Grammar::~Grammar()
-{
+state Grammar::getInitialState() {
+    return this->initialState;
+}
 
+state Grammar::getFinalState() {
+    return this->finalState;
+}
+
+
+std::vector<Rule> Grammar::getRulesList() {
+    return this->rulesList;
 }
