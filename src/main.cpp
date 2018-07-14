@@ -1,7 +1,6 @@
 #include "turingmachine/turingmachine.hpp"
 
 int main () {
-    Grammar grammar;
 
     /***** Règles d'essai *****/
     /*
@@ -15,7 +14,7 @@ int main () {
 	7 Q2,# => Q3,#,R
 	 Etat final : Q3
 	 */
-    Grammar g("Grammaire de test");
+    Grammar grammar("Grammaire de test");
     grammar.addRule("Q0","a","Q0","X",RIGHT);
     grammar.addRule("Q0","b","Q0","Y",RIGHT);
     grammar.addRule("Q0","#","Q1","#",LEFT);
@@ -24,6 +23,7 @@ int main () {
     grammar.addRule("Q2","Y","Q2","X",RIGHT);
     grammar.addRule("Q2","X","Q2","X",RIGHT);
     grammar.addRule("Q2","#","Q3","#",RIGHT);
+    grammar.addInitialState("Q0");
     grammar.addFinalState("Q3");
 
     /***************************/

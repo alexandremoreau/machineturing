@@ -3,7 +3,6 @@
 //
 
 #include "turingmachine.hpp"
-#include <utility>
 
 TuringMachine::TuringMachine() {
 
@@ -18,8 +17,17 @@ void TuringMachine::addGrammar(Grammar &grammar) {
     this->grammar = &grammar;
 }
 
-void TuringMachine::start(std::string word) {
-    std::cout << word;
+int TuringMachine::start(std::string word) {
+    // TODO test mot
+    unsigned int pos=0;
+    this->currentState = this->grammar->getInitialState();
+    std:: cout <<this->grammar->getRule("a",this->currentState);
+
+    /*do {*/
+       //
+
+   /* } while(this->currentState!=this->grammar->getFinalState());*/
+    return 0;
 }
 
 void TuringMachine::displayGrammar() {

@@ -13,9 +13,10 @@ public:
     TuringMachine(std::string word, Grammar &grammar);
     void displayGrammar();
     void addGrammar(Grammar &grammar);
-    void start(std::string word);
+    int start(std::string word);
 private:
     Grammar *grammar;
+    state currentState;
 };
 
 
