@@ -5,9 +5,8 @@
 #include "grammar.hpp"
 #include <utility>
 
-
 Grammar::Grammar() {
-
+    this->name = "undefined";
 }
 
 Grammar::Grammar(std::string name) {
@@ -22,26 +21,39 @@ void Grammar::addRule(state currentState, std::string read, state newState, std:
     rule.newState = std::move(newState);
     rule.write = std::move(write);
     rule.direction = direction;
-    rulesList.push_back(rule);
+    this->rulesList.push_back(rule);
+}
+
+void Grammar::addInitialState(state initialState) {
+    this->initialState = std::move(initialState);
 }
 
 void Grammar::addFinalState(state finalState) {
-    this->finalState = finalState;
+    this->finalState = std::move(finalState);
 }
 
 void Grammar::listRuleDisplay() {
-    std::cout << "Règles" << std::endl;
-    for (std::vector<Rule>::const_iterator i = rulesList.begin(); i != rulesList.end(); ++i) {
+    std::cout << this->name << std::endl;
+    for (std::vector<Rule>::const_iterator i = this->rulesList.begin(); i != this->rulesList.end(); ++i) {
+        std::string directionDisplay = (i->direction==1) ? "LEFT" : "RIGHT";
         std::cout << "Etat initial: " << i->currentState << " / ";
         std::cout << "Caractère lu: " << i->read << " / ";
         std::cout << "Nouvel état: " << i->newState << " / ";
         std::cout << "Caractère écrit: " << i->write << " / ";
-        std::cout << "direction: " << i->direction << std::endl;
+        std::cout << "direction: " <<  directionDisplay << std::endl;
     }
-
+    std::cout << std::endl;
 }
 
-Grammar::~Grammar()
-{
+state Grammar::getInitialState() {
+    return this->initialState;
+}
 
+state Grammar::getFinalState() {
+    return this->finalState;
+}
+
+
+std::vector<Rule> Grammar::getRulesList() {
+    return this->rulesList;
 }
