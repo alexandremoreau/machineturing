@@ -15,8 +15,11 @@ public:
     void addGrammar(Grammar &grammar);
     int start(std::string word);
 private:
+    unsigned int pos;
+    std::string word;
     Grammar *grammar;
     state currentState;
+    void displayWord();
 };
 
 

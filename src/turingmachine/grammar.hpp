@@ -30,8 +30,8 @@ struct Rule {
 class Grammar {
 public:
     Grammar();
-    Grammar(std::string name);
-    ~Grammar();
+
+    explicit Grammar(std::string name);
 
     void addRule(state currentState, std::string read, state newState, std::string write, direction direction);
     void addInitialState(state initialState);
@@ -40,8 +40,7 @@ public:
 
     state getInitialState();
     state getFinalState();
-
-    int getRule(std::string c, const state &currentState);
+    std::vector<Rule> getRulesList();
 
 private:
     std::vector<Rule> rulesList;

@@ -33,9 +33,7 @@ int main () {
     turingMachine.displayGrammar();
 
     turingMachine.start("abbaabb");
-
-
-
+    turingMachine.start("00001100");
 
 		/*cin >> lancement;
 			std::cout << "Quel mot voulez reconnaitre ?" << endl;
