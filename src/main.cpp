@@ -1,24 +1,10 @@
 #include "turingmachine/turingmachine.hpp"
 
-//std::list<unsigned> regle(const std::size_t & max){
-	//std::list<unsigned> r;
-	//for(std::size_t i=0;i<=max;++i) l.push_back(i);
-	//r.push_back("Q0", "a", "Q0", "X", "Right");
-	//return r;
-//}
-
-
 int main () {
+    Grammar grammar;
 
-    Grammar g;
-    g.addRule("Q0","a","Q1","X",true);
-    g.addRule("Q1","a","Q1","Y",true);
-    TuringMachine turingMachine;
-    turingMachine.addGrammar(g);
-    turingMachine.displayGrammar();
-
-	/***** Règles d'essai *****/
-	/*
+    /***** Règles d'essai *****/
+    /*
 	0 Q0,a => Q0,X,R
 	1 Q0,b => Q0,Y,R
 	2 Q0,# => Q1,#,L
@@ -27,12 +13,31 @@ int main () {
 	5 Q2,Y => Q2,Y,R
 	6 Q2,X => Q2,X,R
 	7 Q2,# => Q3,#,R
-	 Etat final : Q3 
+	 Etat final : Q3
 	 */
-	/*string lancement="N";
-	std::cout << "Bonjour, bienvenue sur le simulateur de machine de Turing" << endl;
-		*//*cout << "Voulez lancer une simulation ? (Y/N)" << endl;
-		cin >> lancement;
+    Grammar g("Grammaire de test");
+    grammar.addRule("Q0","a","Q0","X",RIGHT);
+    grammar.addRule("Q0","b","Q0","Y",RIGHT);
+    grammar.addRule("Q0","#","Q1","#",LEFT);
+    grammar.addRule("Q1","X","Q2","X",RIGHT);
+    grammar.addRule("Q1","Y","Q1","Y",LEFT);
+    grammar.addRule("Q2","Y","Q2","X",RIGHT);
+    grammar.addRule("Q2","X","Q2","X",RIGHT);
+    grammar.addRule("Q2","#","Q3","#",RIGHT);
+    grammar.addFinalState("Q3");
+
+    /***************************/
+
+    TuringMachine turingMachine;
+    turingMachine.addGrammar(grammar);
+    turingMachine.displayGrammar();
+
+    turingMachine.start("abbaabb");
+
+
+
+
+		/*cin >> lancement;
 			std::cout << "Quel mot voulez reconnaitre ?" << endl;
 			string mot="";
 			cin >> mot;
